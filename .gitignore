@@ -133,3 +133,4 @@ node_modules/
 .vscode/
 next-with-supabase/supabase/.branches/
 next-with-supabase/scripts
+/.claude/settings.json
