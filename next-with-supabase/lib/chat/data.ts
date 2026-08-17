@@ -71,20 +71,9 @@ export async function getConversationList(
 export async function getConversationMessages(
   supabase: SupabaseClient,
   conversationId: string,
+  userId: string,
 ): Promise<ChatMessageItem[] | null> {
-  if (!isValidUuid(conversationId)) {
-    return null;
-  }
-
-  const { data: conversation, error: conversationError } = await supabase
-    .from("chat_conversations")
-    .select("id")
-    .eq("id", conversationId)
-    .maybeSingle();
-
-  if (conversationError) {
-    throw conversationError;
-  }
+  const conversation = await getOwnedConversation(supabase, conversationId, userId);
   if (!conversation) {
     return null;
   }
